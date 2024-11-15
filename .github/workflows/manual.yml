@@ -1,21 +1,30 @@
 on:
   push:
     branches:
-      - main  # Solo se activa cuando hay un push a la rama principal
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Deploy to AWS EC2 (Despliegue en EC2)
+      - name: Configure SSH
         run: |
-          ssh -i "${{ secrets.EC2_SSH_KEY }}" -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
-            cd paleta_de_colores  # Ruta del proyecto en el servidor EC2
-            git pull origin main  # Trae los últimos cambios
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/private_key
+          chmod 600 ~/.ssh/private_key
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/private_key
+        env:
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -i ~/.ssh/private_key \
+              ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
+            cd paleta_de_colores
+            git pull origin main
           EOF
         env:
           EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
