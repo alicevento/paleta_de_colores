@@ -53,7 +53,7 @@ Este proyecto es una aplicación web que permite a los usuarios subir una imagen
 - `static/`: Contiene los archivos CSS y JavaScript.
 
 ## :hammer: Funcionalidad
-- El usuario sube una imagen y selecciona cuántos colores extraer (mínimo 3 y máximo 10).
+- El usuario sube una imagen y hace click en "Generar paleta".
 - El servidor procesa la imagen, extrae los colores predominantes y devuelve la paleta de colores.
 - La interfaz muestra la imagen cargada y la paleta de colores, incluyendo valores en RGB, HEX y CMYK.
 

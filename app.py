@@ -23,7 +23,7 @@ def upload():
     # Guardar la imagen temporalmente
     try:
         img = Image.open(image)
-        img = img.convert("RGB")  # Asegurarse de que la imagen esté en RGB
+        img = img.convert("RGB")  
         img.save('uploaded_image.jpg', format='JPEG')
 
         # Verificar si la imagen fue guardada
