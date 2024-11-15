@@ -4,7 +4,7 @@
 Este proyecto es una aplicación web que permite a los usuarios subir una imagen y generar una paleta de colores a partir de ella. Utiliza Flask como framework para el backend, junto con la librería `colorgram` para la extracción de colores y `Pillow` para el manejo de imágenes. El frontend está construido con HTML, CSS (Bootstrap) y JavaScript.
 
 ## :star: Características
-- Subir una imagen y extraer entre 3 y 10 colores predominantes.
+- Subir una imagen colores predominantes.
 - Mostrar la paleta de colores generada en formato RGB, HEX y CMYK.
 - Interfaz de usuario simple y fácil de usar, desarrollada con Bootstrap.
 
@@ -45,7 +45,7 @@ Este proyecto es una aplicación web que permite a los usuarios subir una imagen
    python app.py
    ```
 2. Abre tu navegador web y visita `http://127.0.0.1:5000`.
-3. Sube una imagen, selecciona el número de colores a extraer (entre 3 y 10) y haz clic en "Generar Paleta".
+3. Sube una imagen y haz clic en "Generar Paleta".
 
 ## :file_folder: Archivos Principales
 - `app.py`: Código del backend usando Flask.
@@ -68,12 +68,10 @@ Este proyecto es una aplicación web que permite a los usuarios subir una imagen
 - Permitir la extracción de más colores, dependiendo del rendimiento.
 - Implementar autenticación para que los usuarios puedan guardar y gestionar sus paletas de colores.
 
-## :busts_in_silhouette: Créditos
+## :busts_in_silhouette: Autor
 - Desarrollado por Alicia Vento.
 
-## :scroll: Licencia
-Este proyecto está bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.
-```
+
 
 
 
