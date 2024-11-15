@@ -23,7 +23,7 @@ jobs:
               -o UserKnownHostsFile=/dev/null \
               -i ~/.ssh/private_key \
               ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
-            cd paleta_de_colores
+            cd /home/ec2-user/paleta_de_colores
             git pull origin main
           EOF
         env:
