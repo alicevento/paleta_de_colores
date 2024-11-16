@@ -31,6 +31,9 @@ jobs:
               ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
             cd /home/ec2-user/paleta_de_colores
             git pull origin main
+            screen -S flask_app -X quit
+            screen -S flask_app
+            sudo flask run --host=0.0.0.0 --port=80
           EOF
         env:
           EC2_PUBLIC_IP: ${{ secrets.EC2_PUBLIC_IP }}
