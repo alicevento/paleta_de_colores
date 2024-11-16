@@ -25,8 +25,7 @@ jobs:
               -i ~/.ssh/private_key \
               ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
             eval $(ssh-agent -s)
-            echo "${{ secrets.SSH_PASSPHRASE }}" | SSH_ASKPASS=/bin/echo ssh-add ~/.ssh/id_ed25519
-            cd /home/ec2-user/paleta_de_colores
+            echo "${{ secrets.SSH_PASSPHRASE }}" | SSH_ASKPASS=/bin/echo ssh-add ~/.ssh/id_rsa
             git pull origin main
           EOF
         env:
