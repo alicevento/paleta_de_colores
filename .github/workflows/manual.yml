@@ -13,9 +13,10 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/private_key
           chmod 600 ~/.ssh/private_key
           eval $(ssh-agent -s)
-          ssh-add ~/.ssh/private_key
+          echo "${{ secrets.SSH_PASSPHRASE }}" | SSH_ASKPASS=/bin/echo ssh-add ~/.ssh/private_key
         env:
           EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
 
       - name: Deploy to EC2
         run: |
@@ -27,5 +28,4 @@ jobs:
             git pull origin main
           EOF
         env:
-          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
           EC2_PUBLIC_IP: ${{ secrets.EC2_PUBLIC_IP }}
