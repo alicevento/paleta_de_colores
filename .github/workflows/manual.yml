@@ -6,27 +6,32 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
+          # Guardar la clave privada en ~/.ssh/private_key
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/private_key
           chmod 600 ~/.ssh/private_key
+
+          # Iniciar el agente SSH
           eval $(ssh-agent -s)
-          echo "${{ secrets.SSH_PASSPHRASE }}" | SSH_ASKPASS=/bin/echo ssh-add ~/.ssh/private_key
-        env:
-          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-          SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
+
+          # Agregar la clave privada al agente SSH (sin passphrase)
+          ssh-add ~/.ssh/private_key
+
 
       - name: Deploy to EC2
         run: |
+          # Conectar a EC2 y realizar el pull del repositorio
           ssh -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null \
               -i ~/.ssh/private_key \
               ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
-            eval $(ssh-agent -s)
-            echo "${{ secrets.SSH_PASSPHRASE }}" | SSH_ASKPASS=/bin/echo ssh-add ~/.ssh/id_rsa
+            cd /home/ec2-user/paleta_de_colores
             git pull origin main
           EOF
         env:
           EC2_PUBLIC_IP: ${{ secrets.EC2_PUBLIC_IP }}
+
